@@ -1,0 +1,78 @@
+<div class="container">
+<h2>User Directory</h2>
+<hr/>
+<div class="container-fluid">
+    
+    <div class="row">
+      <div class="col-sm-4">
+          <label for="search-user">Search User:</label>
+          <input type="text" [(ngModel)]="searchText" class="form-control" id="search-user" placeholder="Search user by name"></div>
+          <div class="col-sm-4"></div><div class="col-sm-4"><br/><button class="btn btn-primary float-right"><span data-toggle="modal" data-target="#userModal">Create User</span></button></div>  
+    </div>
+  </div>
+<br/><br/>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email ID</th>
+        <th>Phone Number</th>
+        <th>Company Name</th>
+        <th>Address</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let user of users | filter : searchText">
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.company.name}}</td>
+        <td>{{user.address.street}}</td>
+        <td><span class="glyphicon glyphicon-edit" (click)=updateUser(user)><a data-toggle="modal" data-target="#userModal" href="#">Edit</a></span> <span (click)=deleteUser(user.id) class="glyphicon glyphicon-trash"><a href="#">Delete</a></span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Modal template starts here -->
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update User Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userForm" >
+          <div class="form-group">
+            <label for="user-name" class="form-control-label">Name:</label>
+            <input type="text" class="form-control" formControlName="user-name" id="user-name">
+          </div><div class="form-group">
+            <label for="user-emailid" class="form-control-label">Email ID:</label>
+            <input type="text" class="form-control" formControlName="user-emailid" id="user-emailid">
+          </div>
+          <div class="form-group">
+            <label for="user-phone-number" class="form-control-label">Phone Number:</label>
+            <input type="text" class="form-control" formControlName="user-phone-number" id="user-phone-number">
+          </div>
+          <div class="form-group">
+            <label for="user-company-name" class="form-control-label">Company Name:</label>
+            <input type="text" class="form-control" formControlName="user-company-name"  id="user-company-name">
+          </div>
+          <div class="form-group">
+            <label for="user-address" class="form-control-label">Address:</label>
+            <textarea class="form-control" formControlName="user-address" id="user-address"></textarea>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)='onUserFormSubmit()' data-dismiss="modal">Update User</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
