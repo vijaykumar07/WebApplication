@@ -23,13 +23,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor = "let user of users | filter : searchText">
+      <tr *ngFor = "let user of users | filter : searchText; let i = index">
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
         <td>{{user.phone}}</td>
         <td>{{user.company.name}}</td>
         <td>{{user.address.street}}</td>
-        <td><span class="glyphicon glyphicon-edit" (click)=updateUser(user)><a data-toggle="modal" data-target="#userModal" href="#">Edit</a></span> <span (click)=deleteUser(user.id) class="glyphicon glyphicon-trash"><a href="#">Delete</a></span></td>
+        <td><span class="glyphicon glyphicon-edit" (click)=updateUser(user)><a data-toggle="modal" data-target="#userModal" href="#">Edit</a></span> <span (click)=deleteUser(i) class="glyphicon glyphicon-trash"><a href="#">Delete</a></span></td>
       </tr>
     </tbody>
   </table>

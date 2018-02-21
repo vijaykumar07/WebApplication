@@ -97,18 +97,17 @@ export class UsersComponent implements OnInit {
 
   }
   // delete User from the user modal
-  deleteUser(userID){
-    let deleteUserIndex = userID - 1,
+  deleteUser(index){
+    let deleteUserIndex = index,
         self = this;
     this.users.forEach(function (user, index) {
-      user.id = index + 1;
       if(index === deleteUserIndex){
         self.users.splice(index, 1);
       }
   });
 
 }
-
+}  
 interface User{
   id:number,
   name:string,
@@ -117,7 +116,6 @@ interface User{
   website:string,
   company:Company,
   address:Address
-
 }
 
 interface Company{
