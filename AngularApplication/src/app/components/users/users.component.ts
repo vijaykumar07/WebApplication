@@ -29,7 +29,7 @@ export class UsersComponent implements OnInit {
   userIdToUpdate = null;
 
   constructor(private userService: UserService) {
-
+    console.log("User component has started!")
   }
 
   ngOnInit() {
