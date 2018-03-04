@@ -13,15 +13,17 @@ export class UsersComponent implements OnInit {
   users: User[];
   userCopy: User[];
   statusCode: number;
-  createUser: any = {};
+  userObj: any = {};
+  isUserCreate: boolean;
+  isUserUpdate: boolean;
 
   //Create form
   userForm = new FormGroup({
-    "user-name": new FormControl('', Validators.required),
-    "user-emailid": new FormControl('', Validators.required),
-    "user-phone-number": new FormControl('', Validators.required),
-    "user-company-name": new FormControl('', Validators.required),
-    "user-address": new FormControl('', Validators.required)
+    'user-name': new FormControl('', Validators.required),
+    'user-emailid': new FormControl('', Validators.required),
+    'user-phone-number': new FormControl('', Validators.required),
+    'user-company-name': new FormControl('', Validators.required),
+    'user-address': new FormControl('', Validators.required)
   });
 
   userIdToUpdate = null;
@@ -40,10 +42,18 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  createUser() {
+      this.isUserCreate = true;
+      this.isUserUpdate = false;
+
+  }
+
   updateUser(user) {
+    this.isUserCreate = false;
+    this.isUserUpdate = true;
     this.userCopy = user;
     this.userIdToUpdate = user.id;
-    this.userForm.setValue({ "user-name": user.name, "user-emailid": user.email, "user-phone-number": user.phone, "user-company-name": user.company.name, "user-address": user.address.street });
+    this.userForm.setValue({ 'user-name': user.name, 'user-emailid': user.email, 'user-phone-number': user.phone, 'user-company-name': user.company.name, 'user-address': user.address.street });
   }
 
   onUserFormSubmit() {
@@ -57,15 +67,15 @@ export class UsersComponent implements OnInit {
       userAddress = userFormDetails['user-address'];
     if (this.userIdToUpdate === null) {
       //Handle create 
-      this.createUser['id'] = this.users.length + 1;
-      this.createUser['name'] = userName;
-      this.createUser['email'] = userEmailID;
-      this.createUser['phone'] = userPhoneNumber;
-      this.createUser['company'] = { "name": userCompanyName };
-      this.createUser['address'] = { "street": userAddress };
+      this.userObj['id'] = this.users.length + 1;
+      this.userObj['name'] = userName;
+      this.userObj['email'] = userEmailID;
+      this.userObj['phone'] = userPhoneNumber;
+      this.userObj['company'] = { 'name': userCompanyName };
+      this.userObj['address'] = { 'street': userAddress };
 
       //Add User Details in UserModal
-      this.users.push(this.createUser);
+      this.users.unshift(this.userObj);
 
     } else {
       //Handle update
@@ -78,13 +88,13 @@ export class UsersComponent implements OnInit {
         user.address.street = userAddress;
 
         let self = this;
-        this.users.forEach(function (value, index) {
+        this.users.forEach((value, index) => {
           if ((self.userIdToUpdate - 1) === index) {
             //Update the users Model
             self.users[index] = user;
           }
         });
-        
+
       });
     }
 
@@ -93,14 +103,14 @@ export class UsersComponent implements OnInit {
   deleteUser(index) {
     let deleteUserIndex = index,
       self = this;
-    this.users.forEach(function (user, index) {
+    this.users.forEach((user, index) => {
       if (index === deleteUserIndex) {
         self.users.splice(index, 1);
       }
     });
-
   }
 }
+
 interface User {
   id: number,
   name: string,

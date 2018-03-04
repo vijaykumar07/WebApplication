@@ -5,7 +5,7 @@
       <div class="col-sm-4">
           <label for="search-user">Search User:</label>
           <input type="text" [(ngModel)]="searchText" class="form-control" id="search-user" placeholder="Search user by name"></div>
-          <div class="col-sm-4"></div><div class="col-sm-4"><br/><button class="btn btn-primary float-right"><span data-toggle="modal" data-target="#userModal">Create User</span></button></div>  
+          <div class="col-sm-4"></div><div class="col-sm-4"><br/><button class="btn btn-primary float-right"><span data-toggle="modal" (click)=createUser() data-target="#userModal">Create User</span></button></div>  
     </div>
   </div>
 <br/><br/>
@@ -37,7 +37,8 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Update User Details</h5>
+        <h5 class="modal-title" *ngIf="isUserCreate">Create User Details</h5>
+        <h5 class="modal-title" *ngIf="isUserUpdate">Update User Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -66,7 +67,8 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)='onUserFormSubmit()' data-dismiss="modal">Update User</button>
+            <button *ngIf="isUserCreate" type="button" class="btn btn-primary" (click)='onUserFormSubmit()' data-dismiss="modal">Create User</button>
+            <button *ngIf="isUserUpdate" type="button" class="btn btn-primary" (click)='onUserFormSubmit()' data-dismiss="modal">Update User</button>
           </div>
         </form>
       </div>
