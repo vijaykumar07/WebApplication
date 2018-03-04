@@ -13,18 +13,6 @@ import { Http, HttpModule, BaseRequestOptions } from '@angular/http';
 
 import {MockBackend} from "@angular/http/testing";
 
-class UserServiceMock {
-  public getAllUsers () {
-    return undefined;
-  }
-  public getUserByID () {
-    return undefined;
-  }
-  public updateUser () {
-    return undefined;
-  }
-}
-
 describe('UsersComponent', () => {
   let component: UsersComponent;
   let fixture: ComponentFixture<UsersComponent>;
@@ -34,8 +22,7 @@ describe('UsersComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ UsersComponent, FilterPipe ],
       imports: [ FormsModule, HttpModule, ReactiveFormsModule ],
-      providers:[ UserService, MockBackend,
-        BaseRequestOptions,
+      providers:[ UserService, MockBackend, BaseRequestOptions,
         {
           provide: Http,
           useFactory: (backend, options) => new Http(backend, options),
@@ -44,10 +31,10 @@ describe('UsersComponent', () => {
     })
 
     // Configure the component with another set of Providers
-    TestBed.overrideComponent(
-      UsersComponent,
-      {set: {providers: [{provide: UserService, useClass: UserServiceMock}]}}
-    );
+    // TestBed.overrideComponent(
+    //   UsersComponent,
+    //   {set: {providers: [{provide: UserService, useClass: UserServiceMock}]}}
+    // );
   });
 
   beforeEach(() => {
