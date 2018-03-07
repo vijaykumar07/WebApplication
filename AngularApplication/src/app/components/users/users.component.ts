@@ -45,7 +45,7 @@ export class UsersComponent implements OnInit {
   createUser() {
       this.isUserCreate = true;
       this.isUserUpdate = false;
-
+      this.userForm.reset();
   }
 
   updateUser(user) {
